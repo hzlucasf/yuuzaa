@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://yuuzaa:yuuzaa@yuuzaa-db:27017/yuuzaa?authSource=admin
+  logging:
+    level:
+      root: DEBUG
+rsa:
+  key:
+    public: classpath:public.key
+    private: classpath:private.key
+allowed:
+  origin: https://foo.bar

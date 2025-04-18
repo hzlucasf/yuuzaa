@@ -1,0 +1,43 @@
+services:
+  yuuzaa-client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: yuuzaa-client
+    depends_on:
+      - yuuzaa-server
+    ports:
+      - "80:80"
+    networks:
+      - yuuzaa
+  yuuzaa-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: yuuzaa-server
+    depends_on:
+      - mongo
+    ports:
+      - "8080:8080"
+    networks:
+      - yuuzaa
+  mongo:
+    image: mongo
+    container_name: yuuzaa-db
+    ports:
+      - "27017:27017"
+    expose:
+      - "27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=yuuzaa
+      - MONGO_INITDB_ROOT_PASSWORD=yuuzaa
+    networks:
+      - yuuzaa
+    volumes:
+      - yuuzaa-data:/data/db
+networks:
+  yuuzaa:
+    name: yuuzaa
+volumes:
+  yuuzaa-data:
+    name: yuuzaa
